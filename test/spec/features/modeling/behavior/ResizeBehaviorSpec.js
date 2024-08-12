@@ -326,6 +326,63 @@ describe('features/modeling - resize behavior', function() {
         })
       );
 
+      it('should snap to nested child lanes from <ne>', inject(
+        function(dragging, elementRegistry, resize) {
+
+          // given
+          var lane = elementRegistry.get('Lane_A');
+
+          // when
+          resize.activate(canvasEvent({ x: 0, y: 0 }), lane, 'ne');
+
+          dragging.move(canvasEvent({ x: -500, y: 500 }));
+
+          dragging.end();
+
+          // then
+          expect(lane.width).to.equal(330);
+          expect(lane.height).to.equal(105);
+        })
+      );
+
+      it('should snap to nested child lanes from <sw>', inject(
+        function(dragging, elementRegistry, resize) {
+
+          // given
+          var lane = elementRegistry.get('Lane_A');
+
+          // when
+          resize.activate(canvasEvent({ x: 0, y: 0 }), lane, 'sw');
+
+          dragging.move(canvasEvent({ x: 500, y: -500 }));
+
+          dragging.end();
+
+          // then
+          expect(lane.width).to.equal(563);
+          expect(lane.height).to.equal(60);
+        })
+      );
+
+      it('should snap to other sibling lanes child participants from <nw>', inject(
+        function(dragging, elementRegistry, resize) {
+
+          // given
+          var lane = elementRegistry.get('Lane_B_0');
+
+          // when
+          resize.activate(canvasEvent({ x: 0, y: 0 }), lane, 'nw');
+
+          dragging.move(canvasEvent({ x: 500, y: 500 }));
+
+          dragging.end();
+
+          // then
+          expect(lane.width).to.equal(563);
+          expect(lane.height).to.equal(60);
+        })
+      );
+
     });
 
 

@@ -1438,7 +1438,7 @@ describe('features/replace - bpmn replace', function() {
     }));
 
 
-    it('should keep isForCompensation attr', inject(function(elementRegistry, bpmnReplace) {
+    it('should not keep isForCompensation attr', inject(function(elementRegistry, bpmnReplace) {
 
       // given
       var task = elementRegistry.get('Task_1');
@@ -1450,7 +1450,7 @@ describe('features/replace - bpmn replace', function() {
       var newElement = bpmnReplace.replaceElement(task, newElementData);
 
       // then
-      expect(newElement.businessObject.isForCompensation).to.be.true;
+      expect(newElement.businessObject.isForCompensation).to.be.false;
     }));
 
   });
